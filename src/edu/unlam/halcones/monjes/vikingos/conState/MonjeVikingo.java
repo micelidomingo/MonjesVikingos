@@ -7,7 +7,7 @@ import edu.unlam.halcones.monjes.vikingos.conState.estados.Normal;
 
 public class MonjeVikingo extends Vikingo {
 	private Estado estado;
-	private BigDecimal vida;
+	private BigDecimal vida = BigDecimal.ZERO;
 	private BigDecimal ataque = BigDecimal.TEN;
 
 	public MonjeVikingo() {
@@ -17,13 +17,14 @@ public class MonjeVikingo extends Vikingo {
 	@Override
 	public void atacar(Vikingo otherVikingo) {
 		estado = estado.atacar();
-		otherVikingo.recibirAtaque(ataque.add(estado.getMultiplicadorAtaque()));
+		//otherVikingo.recibirAtaque(ataque.add(estado.getMultiplicadorAtaque()));
+		ataque = ataque.add(estado.getMultiplicadorAtaque());
 	}
 
 	@Override
 	public void recibirAtaque(BigDecimal danio) {
-		vida = vida.subtract(danio.multiply(estado.getMultiplicadorDefensa()));
 		estado = estado.recibirAtaque();
+		vida = vida.subtract(danio.multiply(estado.getMultiplicadorDefensa()));
 	}
 
 	@Override
